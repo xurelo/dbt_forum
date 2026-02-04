@@ -31,7 +31,10 @@ jobs:
           # Version range or exact version of Python or PyPy to use, using SemVer's version range syntax. Reads from .python-version if unset.
           python-version: '3.12'
           cache: 'pip'
-          pip-install: requirements.txt
+
+      - name: Install packages
+        run: |
+          pip install -r requirements.txt
           
 
       # Runs a single command using the runners shell
