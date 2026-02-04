@@ -62,7 +62,7 @@ jobs:
           DBT_PORT: 5432
           DBT_DBNAME: db_test
           DBT_SCHEMA: analytics_forum
-        run: dbt build
+        run: dbt build --target github_actions
         working-directory: .
 
       - name: List files (Debug)
