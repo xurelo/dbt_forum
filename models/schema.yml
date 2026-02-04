@@ -26,6 +26,8 @@ models:
         description: "User email"
         tests:
           - not_null
+      - name: country
+        description: "User country"
       - name: confirmed
         description: "If the user has already confirmed the account"
         tests:

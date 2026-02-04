@@ -8,6 +8,7 @@ select
     id as user_id,
     username,
     email,
+    country,
     cast(confirmed as boolean) as confirmed,
     cast(created_at as timestamp) as created_at,
     cast(updated_at as timestamp) as updated_at,

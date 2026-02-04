@@ -1,6 +1,6 @@
-id,username,email,confirmed,created_at,updated_at,deleted
-1,alice,alice@example.com,true,2023-01-10,2023-01-10,false
-2,bob,bob@example.com,false,2023-02-14,2023-02-14,false
-3,charlie,charlie@example.com,true,2023-03-01,2023-03-20,false
-4,dana,dana@example.com,true,2023-03-20,2023-03-20,false
-5,ed,ed@example.com,false,2023-04-05,2023-04-05,false
+id,username,email,country,confirmed,created_at,updated_at,deleted
+1,alice,alice@example.com,Spain,true,2023-01-10,2023-01-10,false
+2,bob,bob@example.com,United Kingdom,false,2023-02-14,2023-02-14,false
+3,charlie,charlie@example.com,USA,true,2023-03-01,2023-03-20,false
+4,dana,dana@example.com,Austria,true,2023-03-20,2023-03-20,false
+5,ed,ed@example.com,Slovenia,false,2023-04-05,2023-04-05,false
