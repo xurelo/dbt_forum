@@ -1,0 +1,8 @@
+id,user_id,content,created_at,updated_at,deleted
+1,1,"Hello world",2023-01-11,2023-01-11,false
+2,2,"My first post",2023-02-15,2023-02-15,false
+3,1,"Another post",2023-02-20,2023-02-20,false
+4,3,"Excited to join",2023-03-05,2023-03-05,false
+5,4,"Good morning",2023-03-21,2023-03-05,false
+6,2,"Learning SQL",2023-04-01,2023-04-01,false
+7,5,"Nice day",2023-04-06,2023-04-06,false

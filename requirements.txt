@@ -1,0 +1,5 @@
+# Requirements for this project
+# Use a compatible dbt adapter for Postgres
+# Pin versions if you need reproducible installs (example below is a common stable series)
+
+dbt-postgres==1.8.0

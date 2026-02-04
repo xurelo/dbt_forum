@@ -1,0 +1,215 @@
+version: 2
+
+models:
+  - name: stg_users
+    # Use ISO 8601 format (YYYY-MM-DD)
+    deprecation_date: 2026-06-01  
+    config:
+      meta:
+        owner:  "dev team"
+        owner_email: "fr@test.com"
+        domain: "engineering"      
+    description: "Staging model for users"
+    # This freshness check is just as an example. It does not make sense at all in this table. It could be added
+    # over a table with the logs from the etl tool, having maybe an _etl_load_date column and a table_name colum too   
+    columns:
+      - name: user_id
+        description: "User identifier"
+        tests:
+          - not_null
+          - unique
+      - name: username
+        description: "User name"
+        tests:
+          - not_null
+      - name: email
+        description: "User email"
+        tests:
+          - not_null
+      - name: confirmed
+        description: "If the user has already confirmed the account"
+        tests:
+          - not_null
+      - name: created_at
+        description: "Creation date of the user in the system"
+        tests:
+          - not_null
+      - name: updated_at
+        description: "Last update of the user's data in the system"
+        tests:
+          - not_null
+
+  - name: stg_posts
+    description: "Staging model for posts"
+    config:
+      meta:
+        owner:  "dev team"
+        owner_email: "fr@test.com"
+        domain: "engineering"    
+    columns:
+      - name: post_id
+        tests:
+          - not_null
+          - unique
+      - name: user_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_users')
+                field: user_id
+      - name: content
+      - name: created_at
+        tests:
+          - not_null
+      - name: updated_at
+        tests:
+          - not_null
+
+  - name: stg_comments
+    description: "Staging model for comments"
+    config:
+      meta:
+        owner:  "dev team"
+        owner_email: "fr@test.com"
+        domain: "engineering"    
+    columns:
+      - name: comment_id
+        tests:
+          - not_null
+          - unique
+      - name: post_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_posts')
+                field: post_id
+      - name: commenter_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_users')
+                field: user_id
+      - name: content
+      - name: created_at
+        tests:
+          - not_null
+
+  - name: stg_likes
+    description: "Staging model for likes"
+    config:
+      meta:
+        owner:  "dev team"
+        owner_email: "fr@test.com"
+        domain: "engineering"   
+    columns:
+      - name: like_id
+        tests:
+          - not_null
+          - unique
+      - name: post_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_posts')
+                field: post_id
+      - name: liker_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_users')
+                field: user_id
+      - name: created_at
+        tests:
+          - not_null
+
+  - name: mart_posts
+    description: "Mart with aggregated post metrics"
+    config:
+      meta:
+        owner:  "dev team"
+        owner_email: "fr@test.com"
+        domain: "business team"    
+    columns:
+      - name: post_id
+        tests:
+          - not_null
+          - unique:
+              config:
+                severity: warn
+          - relationships:
+              arguments:
+                to: ref('stg_posts')
+                field: post_id
+      - name: author_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_users')
+                field: user_id
+      - name: content
+      - name: created_at
+      - name: like_count
+        tests:
+          - not_null
+          - value_greater_than:
+              arguments:
+                threshold: 2
+              config:
+                warn_if: ">2"
+                error_if: ">3"
+          
+      - name: comment_count
+        tests:
+          - not_null
+
+  - name: mart_likes_over_time
+    description: "Daily likes per post"
+    config:
+      meta:
+        owner:  "dev team"
+        owner_email: "fr@test.com"
+        domain: "business team"        
+    columns:
+      - name: date
+        tests:
+          - not_null
+      - name: post_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_posts')
+                field: post_id
+      - name: likes_on_date
+        tests:
+          - not_null
+
+  - name: mart_comments_over_time
+    description: "Daily comments per post"
+    config:
+      meta:
+        owner:  "dev team"
+        owner_email: "fr@test.com"
+        domain: "business team"        
+    columns:
+      - name: date
+        tests:
+          - not_null
+      - name: post_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_posts')
+                field: post_id
+      - name: comments_on_date
+        tests:
+          - not_null
+
+  

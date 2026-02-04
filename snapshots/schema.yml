@@ -1,0 +1,13 @@
+version: 2
+
+snapshots:
+  - name: posts_snapshot
+    description: "Historic of posts for SCD Type 2"
+    config:
+      meta:
+        owner: "devops"
+        owner_email: "devops@t.com"
+        domain: "devops"
+    columns:
+      - name: dbt_valid_from
+        description: "Start date for the register validity"

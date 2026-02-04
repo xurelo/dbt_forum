@@ -1,0 +1,27 @@
+name: dbt_forum
+version: '1.0'
+config-version: 2
+
+profile: dbt_forum_profile
+
+model-paths: ["models"]
+analysis-paths: ["analysis"]
+test-paths: ["tests"]
+seed-paths: ["data"]
+macro-paths: ["macros"]
+
+models:
+  dbt_forum:
+    +schema: analytics_forum
+    +materialized: view
+    staging:
+      +schema: staging
+      +tags: [staging]
+    marts:
+      +schema: marts
+      +materialized: table
+      +tags: [marts]
+
+seeds:
+  +schema: raw
+  +quote_columns: false

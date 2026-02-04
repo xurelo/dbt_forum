@@ -1,0 +1,11 @@
+id,post_id,user_id,content,created_at
+1,1,2,"Nice post",2023-01-12
+2,1,3,"Great!",2023-01-13
+3,1,4,"Loved it",2023-01-14
+4,2,1,"Congrats",2023-02-16
+5,3,3,"Interesting",2023-02-21
+6,3,2,"Thanks for sharing",2023-02-22
+7,5,1,"Good morning to you too",2023-03-22
+8,5,4,"Nice post",2023-03-23
+9,6,3,"Great resource",2023-04-02
+10,7,2,"Agree",2023-04-07

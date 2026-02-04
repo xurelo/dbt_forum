@@ -1,0 +1,23 @@
+version: 2
+
+sources:
+  - name: raw
+    database: null
+    schema: analytics_forum_raw
+    tables:
+      - name: raw_users
+      - name: raw_posts
+        config:
+          freshness:
+      - name: raw_comments
+        config:
+          freshness:      
+      - name: raw_likes
+        config:
+          freshness:      
+      - name: raw_post_ratings
+        config:
+          freshness:      
+      - name: raw_comment_ratings
+        config:
+          freshness:
