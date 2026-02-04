@@ -20,6 +20,22 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: user_test
+          POSTGRES_PASSWORD: password_test
+          POSTGRES_DB: db_test
+        ports:
+          - 5432:5432
+        # Wait for postgresql to be ready
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5    
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -39,8 +55,20 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Runs dbt
+        env:
+          DBT_HOST: localhost
+          DBT_USER: user_test
+          DBT_PASS: password_test
+          DBT_PORT: 5432
+          DBT_DBNAME: db_test
+          DBT_SCHEMA: analytics_forum
         run: dbt build
         working-directory: .
+
+      - name: List files (Debug)
+        if: always()
+        run: |
+          ls -R  # List files in the current folder
 
       - name: Upload a Build Artifact
         if: always()
