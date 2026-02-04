@@ -1,0 +1,11 @@
+dbt_forum_profile:
+  outputs:
+    github_actions:
+      type: postgres
+      host: "{{ env_var('DBT_HOST') }}"
+      user: "{{ env_var('DBT_USER') }}"
+      pass: "{{ env_var('DBT_PASS') }}"
+      port: "{{ env_var('DBT_PORT') | int }}"
+      dbname: "{{ env_var('DBT_DBNAME') }}"
+      schema: "{{ env_var('DBT_SCHEMA') }}"
+  target: github_actions
