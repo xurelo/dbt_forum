@@ -9,6 +9,7 @@ analysis-paths: ["analysis"]
 test-paths: ["tests"]
 seed-paths: ["data"]
 macro-paths: ["macros"]
+target-path: "target/{{ target.name }}"
 
 models:
   dbt_forum:
